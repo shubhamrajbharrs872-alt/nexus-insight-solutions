@@ -9,38 +9,173 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppVitalsRouteImport } from './routes/app.vitals'
+import { Route as AppSettingsRouteImport } from './routes/app.settings'
+import { Route as AppMedicationsRouteImport } from './routes/app.medications'
+import { Route as AppInsightsRouteImport } from './routes/app.insights'
+import { Route as AppCareTeamRouteImport } from './routes/app.care-team'
+import { Route as AppAlertsRouteImport } from './routes/app.alerts'
 
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/app/',
+  path: '/app/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppVitalsRoute = AppVitalsRouteImport.update({
+  id: '/app/vitals',
+  path: '/app/vitals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/app/settings',
+  path: '/app/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppMedicationsRoute = AppMedicationsRouteImport.update({
+  id: '/app/medications',
+  path: '/app/medications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppInsightsRoute = AppInsightsRouteImport.update({
+  id: '/app/insights',
+  path: '/app/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppCareTeamRoute = AppCareTeamRouteImport.update({
+  id: '/app/care-team',
+  path: '/app/care-team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAlertsRoute = AppAlertsRouteImport.update({
+  id: '/app/alerts',
+  path: '/app/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
+  '/app/alerts': typeof AppAlertsRoute
+  '/app/care-team': typeof AppCareTeamRoute
+  '/app/insights': typeof AppInsightsRoute
+  '/app/medications': typeof AppMedicationsRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/vitals': typeof AppVitalsRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
+  '/app/alerts': typeof AppAlertsRoute
+  '/app/care-team': typeof AppCareTeamRoute
+  '/app/insights': typeof AppInsightsRoute
+  '/app/medications': typeof AppMedicationsRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/vitals': typeof AppVitalsRoute
+  '/app': typeof AppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/auth': typeof AuthRoute
+  '/app/alerts': typeof AppAlertsRoute
+  '/app/care-team': typeof AppCareTeamRoute
+  '/app/insights': typeof AppInsightsRoute
+  '/app/medications': typeof AppMedicationsRoute
+  '/app/settings': typeof AppSettingsRoute
+  '/app/vitals': typeof AppVitalsRoute
+  '/app/': typeof AppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/app/alerts'
+    | '/app/care-team'
+    | '/app/insights'
+    | '/app/medications'
+    | '/app/settings'
+    | '/app/vitals'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/app/alerts'
+    | '/app/care-team'
+    | '/app/insights'
+    | '/app/medications'
+    | '/app/settings'
+    | '/app/vitals'
+    | '/app'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/auth'
+    | '/app/alerts'
+    | '/app/care-team'
+    | '/app/insights'
+    | '/app/medications'
+    | '/app/settings'
+    | '/app/vitals'
+    | '/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  AuthRoute: typeof AuthRoute
+  AppAlertsRoute: typeof AppAlertsRoute
+  AppCareTeamRoute: typeof AppCareTeamRoute
+  AppInsightsRoute: typeof AppInsightsRoute
+  AppMedicationsRoute: typeof AppMedicationsRoute
+  AppSettingsRoute: typeof AppSettingsRoute
+  AppVitalsRoute: typeof AppVitalsRoute
+  AppIndexRoute: typeof AppIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +183,80 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/app'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/vitals': {
+      id: '/app/vitals'
+      path: '/app/vitals'
+      fullPath: '/app/vitals'
+      preLoaderRoute: typeof AppVitalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/settings': {
+      id: '/app/settings'
+      path: '/app/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/medications': {
+      id: '/app/medications'
+      path: '/app/medications'
+      fullPath: '/app/medications'
+      preLoaderRoute: typeof AppMedicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/insights': {
+      id: '/app/insights'
+      path: '/app/insights'
+      fullPath: '/app/insights'
+      preLoaderRoute: typeof AppInsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/care-team': {
+      id: '/app/care-team'
+      path: '/app/care-team'
+      fullPath: '/app/care-team'
+      preLoaderRoute: typeof AppCareTeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/alerts': {
+      id: '/app/alerts'
+      path: '/app/alerts'
+      fullPath: '/app/alerts'
+      preLoaderRoute: typeof AppAlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  AuthRoute: AuthRoute,
+  AppAlertsRoute: AppAlertsRoute,
+  AppCareTeamRoute: AppCareTeamRoute,
+  AppInsightsRoute: AppInsightsRoute,
+  AppMedicationsRoute: AppMedicationsRoute,
+  AppSettingsRoute: AppSettingsRoute,
+  AppVitalsRoute: AppVitalsRoute,
+  AppIndexRoute: AppIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
