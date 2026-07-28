@@ -11,15 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppIndexRouteImport } from './routes/app.index'
-import { Route as AppVitalsRouteImport } from './routes/app.vitals'
-import { Route as AppSettingsRouteImport } from './routes/app.settings'
-import { Route as AppMedicationsRouteImport } from './routes/app.medications'
-import { Route as AppInsightsRouteImport } from './routes/app.insights'
-import { Route as AppCareTeamRouteImport } from './routes/app.care-team'
-import { Route as AppAlertsRouteImport } from './routes/app.alerts'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated.app.index'
+import { Route as AuthenticatedAppVitalsRouteImport } from './routes/_authenticated.app.vitals'
+import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated.app.settings'
+import { Route as AuthenticatedAppMedicationsRouteImport } from './routes/_authenticated.app.medications'
+import { Route as AuthenticatedAppInsightsRouteImport } from './routes/_authenticated.app.insights'
+import { Route as AuthenticatedAppCareTeamRouteImport } from './routes/_authenticated.app.care-team'
+import { Route as AuthenticatedAppAlertsRouteImport } from './routes/_authenticated.app.alerts'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -31,9 +32,8 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -41,89 +41,99 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
   id: '/app/',
   path: '/app/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AppVitalsRoute = AppVitalsRouteImport.update({
+const AuthenticatedAppVitalsRoute = AuthenticatedAppVitalsRouteImport.update({
   id: '/app/vitals',
   path: '/app/vitals',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: '/app/settings',
-  path: '/app/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppMedicationsRoute = AppMedicationsRouteImport.update({
-  id: '/app/medications',
-  path: '/app/medications',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppInsightsRoute = AppInsightsRouteImport.update({
-  id: '/app/insights',
-  path: '/app/insights',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppCareTeamRoute = AppCareTeamRouteImport.update({
-  id: '/app/care-team',
-  path: '/app/care-team',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppAlertsRoute = AppAlertsRouteImport.update({
+const AuthenticatedAppSettingsRoute =
+  AuthenticatedAppSettingsRouteImport.update({
+    id: '/app/settings',
+    path: '/app/settings',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAppMedicationsRoute =
+  AuthenticatedAppMedicationsRouteImport.update({
+    id: '/app/medications',
+    path: '/app/medications',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAppInsightsRoute =
+  AuthenticatedAppInsightsRouteImport.update({
+    id: '/app/insights',
+    path: '/app/insights',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAppCareTeamRoute =
+  AuthenticatedAppCareTeamRouteImport.update({
+    id: '/app/care-team',
+    path: '/app/care-team',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAppAlertsRoute = AuthenticatedAppAlertsRouteImport.update({
   id: '/app/alerts',
   path: '/app/alerts',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app/alerts': typeof AppAlertsRoute
-  '/app/care-team': typeof AppCareTeamRoute
-  '/app/insights': typeof AppInsightsRoute
-  '/app/medications': typeof AppMedicationsRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/app/vitals': typeof AppVitalsRoute
-  '/app/': typeof AppIndexRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/app/alerts': typeof AuthenticatedAppAlertsRoute
+  '/app/care-team': typeof AuthenticatedAppCareTeamRoute
+  '/app/insights': typeof AuthenticatedAppInsightsRoute
+  '/app/medications': typeof AuthenticatedAppMedicationsRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/vitals': typeof AuthenticatedAppVitalsRoute
+  '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app/alerts': typeof AppAlertsRoute
-  '/app/care-team': typeof AppCareTeamRoute
-  '/app/insights': typeof AppInsightsRoute
-  '/app/medications': typeof AppMedicationsRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/app/vitals': typeof AppVitalsRoute
-  '/app': typeof AppIndexRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/app/alerts': typeof AuthenticatedAppAlertsRoute
+  '/app/care-team': typeof AuthenticatedAppCareTeamRoute
+  '/app/insights': typeof AuthenticatedAppInsightsRoute
+  '/app/medications': typeof AuthenticatedAppMedicationsRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/app/vitals': typeof AuthenticatedAppVitalsRoute
+  '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/app/alerts': typeof AppAlertsRoute
-  '/app/care-team': typeof AppCareTeamRoute
-  '/app/insights': typeof AppInsightsRoute
-  '/app/medications': typeof AppMedicationsRoute
-  '/app/settings': typeof AppSettingsRoute
-  '/app/vitals': typeof AppVitalsRoute
-  '/app/': typeof AppIndexRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/app/alerts': typeof AuthenticatedAppAlertsRoute
+  '/_authenticated/app/care-team': typeof AuthenticatedAppCareTeamRoute
+  '/_authenticated/app/insights': typeof AuthenticatedAppInsightsRoute
+  '/_authenticated/app/medications': typeof AuthenticatedAppMedicationsRoute
+  '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
+  '/_authenticated/app/vitals': typeof AuthenticatedAppVitalsRoute
+  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/admin'
     | '/auth'
     | '/sitemap.xml'
+    | '/admin'
     | '/app/alerts'
     | '/app/care-team'
     | '/app/insights'
@@ -134,9 +144,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/admin'
     | '/auth'
     | '/sitemap.xml'
+    | '/admin'
     | '/app/alerts'
     | '/app/care-team'
     | '/app/insights'
@@ -147,30 +157,24 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/admin'
+    | '/_authenticated'
     | '/auth'
     | '/sitemap.xml'
-    | '/app/alerts'
-    | '/app/care-team'
-    | '/app/insights'
-    | '/app/medications'
-    | '/app/settings'
-    | '/app/vitals'
-    | '/app/'
+    | '/_authenticated/admin'
+    | '/_authenticated/app/alerts'
+    | '/_authenticated/app/care-team'
+    | '/_authenticated/app/insights'
+    | '/_authenticated/app/medications'
+    | '/_authenticated/app/settings'
+    | '/_authenticated/app/vitals'
+    | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AuthRoute: typeof AuthRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  AppAlertsRoute: typeof AppAlertsRoute
-  AppCareTeamRoute: typeof AppCareTeamRoute
-  AppInsightsRoute: typeof AppInsightsRoute
-  AppMedicationsRoute: typeof AppMedicationsRoute
-  AppSettingsRoute: typeof AppSettingsRoute
-  AppVitalsRoute: typeof AppVitalsRoute
-  AppIndexRoute: typeof AppIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -189,11 +193,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -203,70 +207,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/app/': {
-      id: '/app/'
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/app/': {
+      id: '/_authenticated/app/'
       path: '/app'
       fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/app/vitals': {
-      id: '/app/vitals'
+    '/_authenticated/app/vitals': {
+      id: '/_authenticated/app/vitals'
       path: '/app/vitals'
       fullPath: '/app/vitals'
-      preLoaderRoute: typeof AppVitalsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppVitalsRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/app/settings': {
-      id: '/app/settings'
+    '/_authenticated/app/settings': {
+      id: '/_authenticated/app/settings'
       path: '/app/settings'
       fullPath: '/app/settings'
-      preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/app/medications': {
-      id: '/app/medications'
+    '/_authenticated/app/medications': {
+      id: '/_authenticated/app/medications'
       path: '/app/medications'
       fullPath: '/app/medications'
-      preLoaderRoute: typeof AppMedicationsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppMedicationsRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/app/insights': {
-      id: '/app/insights'
+    '/_authenticated/app/insights': {
+      id: '/_authenticated/app/insights'
       path: '/app/insights'
       fullPath: '/app/insights'
-      preLoaderRoute: typeof AppInsightsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppInsightsRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/app/care-team': {
-      id: '/app/care-team'
+    '/_authenticated/app/care-team': {
+      id: '/_authenticated/app/care-team'
       path: '/app/care-team'
       fullPath: '/app/care-team'
-      preLoaderRoute: typeof AppCareTeamRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppCareTeamRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/app/alerts': {
-      id: '/app/alerts'
+    '/_authenticated/app/alerts': {
+      id: '/_authenticated/app/alerts'
       path: '/app/alerts'
       fullPath: '/app/alerts'
-      preLoaderRoute: typeof AppAlertsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppAlertsRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedAppAlertsRoute: typeof AuthenticatedAppAlertsRoute
+  AuthenticatedAppCareTeamRoute: typeof AuthenticatedAppCareTeamRoute
+  AuthenticatedAppInsightsRoute: typeof AuthenticatedAppInsightsRoute
+  AuthenticatedAppMedicationsRoute: typeof AuthenticatedAppMedicationsRoute
+  AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
+  AuthenticatedAppVitalsRoute: typeof AuthenticatedAppVitalsRoute
+  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedAppAlertsRoute: AuthenticatedAppAlertsRoute,
+  AuthenticatedAppCareTeamRoute: AuthenticatedAppCareTeamRoute,
+  AuthenticatedAppInsightsRoute: AuthenticatedAppInsightsRoute,
+  AuthenticatedAppMedicationsRoute: AuthenticatedAppMedicationsRoute,
+  AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
+  AuthenticatedAppVitalsRoute: AuthenticatedAppVitalsRoute,
+  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AuthRoute: AuthRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  AppAlertsRoute: AppAlertsRoute,
-  AppCareTeamRoute: AppCareTeamRoute,
-  AppInsightsRoute: AppInsightsRoute,
-  AppMedicationsRoute: AppMedicationsRoute,
-  AppSettingsRoute: AppSettingsRoute,
-  AppVitalsRoute: AppVitalsRoute,
-  AppIndexRoute: AppIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

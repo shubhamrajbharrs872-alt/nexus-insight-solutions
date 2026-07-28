@@ -1,9 +1,11 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Activity, Bell, Home, Pill, Sparkles, Users, Settings, LifeBuoy, ShieldAlert, LogOut, Search } from "lucide-react";
 import { type ReactNode } from "react";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
-import { currentUser, ward } from "@/lib/pulse-mock";
+import { ward } from "@/lib/pulse-mock";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
   { to: "/app", label: "Overview", icon: Home, exact: true },
@@ -19,8 +21,17 @@ export function AppShell({ children, title, subtitle, actions }: {
   children: ReactNode; title: string; subtitle?: string; actions?: ReactNode;
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const { profile, user, isAdmin } = useCurrentUser();
+  const displayName = profile?.full_name ?? user?.email ?? "Signed in";
+  const displayEmail = profile?.email ?? user?.email ?? "";
+  const initials = profile?.avatar_initials ?? (displayEmail ? displayEmail.slice(0, 2).toUpperCase() : "··");
   const isActive = (to: string, exact?: boolean) =>
     exact ? pathname === to : pathname === to || pathname.startsWith(to + "/");
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -70,16 +81,16 @@ export function AppShell({ children, title, subtitle, actions }: {
           })}
         </nav>
         <div className="p-3">
-          <Link to="/" className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted">
+          <button onClick={signOut} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted">
             <LogOut className="h-4 w-4" /> Sign out
-          </Link>
+          </button>
           <div className="mt-3 flex items-center gap-3 rounded-xl bg-surface-2 p-3 hairline">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pulse/15 text-pulse text-xs font-semibold">
-              {currentUser.avatar}
+              {initials}
             </div>
             <div className="min-w-0 text-xs">
-              <div className="truncate font-medium text-foreground">{currentUser.name}</div>
-              <div className="truncate text-muted-foreground">{currentUser.role}</div>
+              <div className="truncate font-medium text-foreground">{displayName}</div>
+              <div className="truncate text-muted-foreground">{isAdmin ? "Administrator" : "Caregiver"}</div>
             </div>
           </div>
         </div>
@@ -101,9 +112,11 @@ export function AppShell({ children, title, subtitle, actions }: {
                 <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-pulse" />
               </Link>
               <ThemeToggle />
-              <Link to="/admin" className="hidden sm:inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-xs font-medium hover:bg-muted">
-                <ShieldAlert className="h-3.5 w-3.5" /> Admin
-              </Link>
+              {isAdmin && (
+                <Link to="/admin" className="hidden sm:inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-xs font-medium hover:bg-muted">
+                  <ShieldAlert className="h-3.5 w-3.5" /> Admin
+                </Link>
+              )}
             </div>
           </div>
         </header>

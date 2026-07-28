@@ -1,11 +1,12 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, redirect } from "@tanstack/react-router";
 import { Logo } from "@/components/pulse/logo";
 import { ThemeToggle } from "@/components/pulse/theme-toggle";
 import { adminGrowth, adminMetrics } from "@/lib/pulse-mock";
 import { Activity, ArrowLeft, Users, Bell, Cpu, DollarSign, ShieldCheck } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Admin — PulseGuard" },
@@ -14,6 +15,17 @@ export const Route = createFileRoute("/admin")({
       { property: "og:description", content: "PulseGuard operations dashboard." },
     ],
   }),
+  beforeLoad: async ({ context }) => {
+    const userId = (context as { user?: { id: string } }).user?.id;
+    if (!userId) throw redirect({ to: "/auth" });
+    const { data, error } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (error || !data) throw redirect({ to: "/app" });
+  },
   component: Admin,
 });
 

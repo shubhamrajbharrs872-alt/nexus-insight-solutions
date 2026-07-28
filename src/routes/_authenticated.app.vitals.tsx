@@ -3,7 +3,7 @@ import { AppShell, Card, SectionLabel } from "@/components/pulse/app-shell";
 import { bpSeries, heartRateSeries, sleepSeries, vitalsToday } from "@/lib/pulse-mock";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-export const Route = createFileRoute("/app/vitals")({
+export const Route = createFileRoute("/_authenticated/app/vitals")({
   head: () => ({
     meta: [
       { title: "Vitals — PulseGuard" },
