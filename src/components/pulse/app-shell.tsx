@@ -1,9 +1,11 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Activity, Bell, Home, Pill, Sparkles, Users, Settings, LifeBuoy, ShieldAlert, LogOut, Search } from "lucide-react";
 import { type ReactNode } from "react";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
-import { currentUser, ward } from "@/lib/pulse-mock";
+import { ward } from "@/lib/pulse-mock";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { supabase } from "@/integrations/supabase/client";
 
 const nav = [
   { to: "/app", label: "Overview", icon: Home, exact: true },
