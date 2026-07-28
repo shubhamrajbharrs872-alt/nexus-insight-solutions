@@ -112,9 +112,11 @@ export function AppShell({ children, title, subtitle, actions }: {
                 <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-pulse" />
               </Link>
               <ThemeToggle />
-              <Link to="/admin" className="hidden sm:inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-xs font-medium hover:bg-muted">
-                <ShieldAlert className="h-3.5 w-3.5" /> Admin
-              </Link>
+              {isAdmin && (
+                <Link to="/admin" className="hidden sm:inline-flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-xs font-medium hover:bg-muted">
+                  <ShieldAlert className="h-3.5 w-3.5" /> Admin
+                </Link>
+              )}
             </div>
           </div>
         </header>
