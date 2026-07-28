@@ -5,7 +5,7 @@ import { adminGrowth, adminMetrics } from "@/lib/pulse-mock";
 import { Activity, ArrowLeft, Users, Bell, Cpu, DollarSign, ShieldCheck } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Admin — PulseGuard" },

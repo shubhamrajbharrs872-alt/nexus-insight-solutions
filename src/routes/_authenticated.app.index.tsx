@@ -4,7 +4,7 @@ import { alerts, heartRateSeries, insights, kpis, medications, timeline, vitalsT
 import { Activity, ArrowUpRight, Bell, Heart, Moon, Pill, Sparkles, ThermometerSun, Droplet, Footprints, Gauge, ChevronRight } from "lucide-react";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
-export const Route = createFileRoute("/app/")({
+export const Route = createFileRoute("/_authenticated/app/")({
   head: () => ({
     meta: [
       { title: "Overview — PulseGuard" },

@@ -3,7 +3,7 @@ import { AppShell, Card, SectionLabel } from "@/components/pulse/app-shell";
 import { insights } from "@/lib/pulse-mock";
 import { Sparkles, Send, TrendingDown, TrendingUp } from "lucide-react";
 
-export const Route = createFileRoute("/app/insights")({
+export const Route = createFileRoute("/_authenticated/app/insights")({
   head: () => ({
     meta: [
       { title: "AI Insights — PulseGuard" },

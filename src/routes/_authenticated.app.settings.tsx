@@ -3,7 +3,7 @@ import { AppShell, Card, SectionLabel } from "@/components/pulse/app-shell";
 import { currentUser, ward } from "@/lib/pulse-mock";
 import { useTheme } from "@/components/pulse/theme-provider";
 
-export const Route = createFileRoute("/app/settings")({
+export const Route = createFileRoute("/_authenticated/app/settings")({
   head: () => ({
     meta: [
       { title: "Settings — PulseGuard" },

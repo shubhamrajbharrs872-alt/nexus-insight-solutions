@@ -3,7 +3,7 @@ import { AppShell, Card, SectionLabel } from "@/components/pulse/app-shell";
 import { medications } from "@/lib/pulse-mock";
 import { Pill, Plus, Check, Clock } from "lucide-react";
 
-export const Route = createFileRoute("/app/medications")({
+export const Route = createFileRoute("/_authenticated/app/medications")({
   head: () => ({
     meta: [
       { title: "Medications — PulseGuard" },

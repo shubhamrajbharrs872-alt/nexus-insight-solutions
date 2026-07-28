@@ -3,7 +3,7 @@ import { AppShell, Card, SectionLabel } from "@/components/pulse/app-shell";
 import { alerts } from "@/lib/pulse-mock";
 import { AlertTriangle, CheckCircle2, Info, Phone } from "lucide-react";
 
-export const Route = createFileRoute("/app/alerts")({
+export const Route = createFileRoute("/_authenticated/app/alerts")({
   head: () => ({
     meta: [
       { title: "Alerts — PulseGuard" },

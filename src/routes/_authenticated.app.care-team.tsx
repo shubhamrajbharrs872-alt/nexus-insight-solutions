@@ -3,7 +3,7 @@ import { AppShell, Card, SectionLabel } from "@/components/pulse/app-shell";
 import { careTeam } from "@/lib/pulse-mock";
 import { MessageSquare, Phone, UserPlus, Video } from "lucide-react";
 
-export const Route = createFileRoute("/app/care-team")({
+export const Route = createFileRoute("/_authenticated/app/care-team")({
   head: () => ({
     meta: [
       { title: "Care team — PulseGuard" },
