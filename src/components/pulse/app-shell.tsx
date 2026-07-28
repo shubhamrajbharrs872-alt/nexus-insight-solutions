@@ -81,16 +81,16 @@ export function AppShell({ children, title, subtitle, actions }: {
           })}
         </nav>
         <div className="p-3">
-          <Link to="/" className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted">
+          <button onClick={signOut} className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted">
             <LogOut className="h-4 w-4" /> Sign out
-          </Link>
+          </button>
           <div className="mt-3 flex items-center gap-3 rounded-xl bg-surface-2 p-3 hairline">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pulse/15 text-pulse text-xs font-semibold">
-              {currentUser.avatar}
+              {initials}
             </div>
             <div className="min-w-0 text-xs">
-              <div className="truncate font-medium text-foreground">{currentUser.name}</div>
-              <div className="truncate text-muted-foreground">{currentUser.role}</div>
+              <div className="truncate font-medium text-foreground">{displayName}</div>
+              <div className="truncate text-muted-foreground">{isAdmin ? "Administrator" : "Caregiver"}</div>
             </div>
           </div>
         </div>
