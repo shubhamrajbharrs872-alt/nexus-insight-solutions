@@ -21,8 +21,17 @@ export function AppShell({ children, title, subtitle, actions }: {
   children: ReactNode; title: string; subtitle?: string; actions?: ReactNode;
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const { profile, user, isAdmin } = useCurrentUser();
+  const displayName = profile?.full_name ?? user?.email ?? "Signed in";
+  const displayEmail = profile?.email ?? user?.email ?? "";
+  const initials = profile?.avatar_initials ?? (displayEmail ? displayEmail.slice(0, 2).toUpperCase() : "··");
   const isActive = (to: string, exact?: boolean) =>
     exact ? pathname === to : pathname === to || pathname.startsWith(to + "/");
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    navigate({ to: "/auth", replace: true });
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
